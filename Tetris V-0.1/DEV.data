@@ -1,0 +1,44 @@
+Logging:
+	0 = Info
+	1 = Success
+	2 = Error
+	3 = Data
+
+Objetcs:
+	Object Data Array:
+	(0) = Object Type
+		1-Colored
+		2-Textured
+		3-Gray Scale
+		4-Text
+		5-Button
+		6-Partical Spawner
+		7-Partical
+	(1) = Number of Points
+	(2) = Center X
+	(3) = Center Y
+	(4) = Radius X
+	(5) = Radius Y
+	(6) = Max X
+	(7) = Min X
+	(8) = Max Y
+	(9) = Min Y
+	(10) = Red Value
+	(11) = Green Value
+	(12) = Blue Value
+	(13) = Alpha Value
+	(14) = Collision Data
+	(15) = Physics Data
+
+	Text Data Array:
+		(0) = X Size of a Letter
+		(1) = Y Size of a Letter
+		(2) = Font of Text
+		(3) = Color of Text
+		(4) = Colision Data of Text
+		(5) = Physics Data of Text
+		(6) = Size of Text String
+		(7) = Number of Lines
+		(8) = Center X Position
+		(9) = Center Y Position
+	

@@ -1,0 +1,21 @@
+/*-----OPENGL Libraries-----*/
+#include "GL/glew.h"
+#include "GLFW/glfw3.h"
+#include "glm/glm.hpp"
+#include "glm/gtx/transform.hpp"
+/*-----Lib PNG-----*/
+#include "png.h"
+/*-----Standard Libraies-----*/
+#include "stdio.h"
+#include "iostream"
+/*-----Other Libraries-----*/
+#include "ctime"
+#include "fstream"
+#include "vector"
+#include "math.h"
+#include "string"
+#include "sstream"
+#include "time.h"
+#include "algorithm"
+/*-----OS Dependant Libraries-----*/
+#include "Windows.h"
