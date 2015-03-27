@@ -96,6 +96,9 @@ void Hephaestus::Clear_Mouse(){
 	Mouse_Click_XPos = 0;
 	Mouse_Click_YPos = 0;
 }
+void Hephaestus::Clear_Key(){
+	Key = 0;
+}
 /*>>>>>-----Layers-----<<<<<*/
 /*-----Layer Actions-----*/
 void Hephaestus::Display_All_Layers(){

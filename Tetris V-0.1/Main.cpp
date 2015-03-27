@@ -251,6 +251,7 @@ int main(){
 				H.Clear_All_Layers();
 				G.Initilize_Game(1, H, Win);
 				First = true;
+				H = G.Main;
 			}
 			if (Layer == 2 && Button == 1 && Action == 0){
 				H.Clear_All_Layers();

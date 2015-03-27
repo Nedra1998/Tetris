@@ -10,6 +10,7 @@ void Game::Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win){
 	Main = Declaration;
 	Game_Type = Type;
 	Game_Good = true;
+	Quit = false;
 	window = Win;
 	Score = 0;
 	New_Score = 0;
@@ -562,6 +563,10 @@ void Game::Pause(){
 	Main.Layers[4]->Clear_All();
 }
 
+char Game::Key(int key){
+	return(char(key));
+}
+
 bool Game::Classic_Game(){
 	Score = 0;
 	Level = 0;
@@ -667,6 +672,7 @@ bool Game::Classic_Game(){
 	}
 	Main.Clear_All_Layers();
 	if (Quit == false){
+		Update = 10;
 		Name = "";
 		Main.Create_New_Layer();
 		Main.Layers[0]->Initilize_Object(2);
@@ -678,7 +684,7 @@ bool Game::Classic_Game(){
 		Main.Layers[1]->Button_Objects[1]->New_Button("Name", "Textures/ButtonB", "Basic/Black", 0.3, 0.15);
 		Main.Layers[1]->Button_Objects[1]->Translate_Button(-0.6, 0.3, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[2]->New_Button("", "Textures/Button", "Basic/Black", 0.55, 0.15);
+		Main.Layers[1]->Button_Objects[2]->New_Button("", "Textures/ButtonB", "Basic/Black", 0.55, 0.15);
 		Main.Layers[1]->Button_Objects[2]->Translate_Button(0.4, 0.3, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
 		Main.Layers[1]->Button_Objects[3]->New_Button("Score", "Textures/ButtonB", "Basic/Black", 0.3, 0.15);
@@ -687,19 +693,42 @@ bool Game::Classic_Game(){
 		Main.Layers[1]->Button_Objects[4]->New_Button(to_string(Score), "Textures/ButtonB", "Basic/Black", 0.55, 0.15);
 		Main.Layers[1]->Button_Objects[4]->Translate_Button(0.4, -0.1, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[5]->New_Button("Main Menu", "Textures/Button", "Basic/Black", 0.3, 0.15);
-		Main.Layers[1]->Button_Objects[5]->Translate_Button(-0.4, -0.5, 0.0);
-		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[6]->New_Button("New Game", "Textures/Button", "Basic/Black", 0.3, 0.15);
-		Main.Layers[1]->Button_Objects[6]->Translate_Button(0.4, -0.5, 0.0);
+		Main.Layers[1]->Button_Objects[5]->New_Button("Main Menu", "Textures/Button", "Basic/Black", 0.5, 0.15);
+		Main.Layers[1]->Button_Objects[5]->Translate_Button(0.0, -0.5, 0.0);
 	}
 	while (Quit == false){
 		int Layer, Button, Action;
+		if (Update > 0){
+			Update--;
+			Main.Clear_Key();
+		}
+		if (Main.Check_Key() < 97 && Main.Check_Key() > 31 && Update == 0){
+			Name = Name + Key(Main.Check_Key());
+			Update = 10;
+		}
+		if (glfwGetKey(window, GLFW_KEY_BACKSPACE) && Update == 0){
+			string New = "";
+			for (int i = 0; i < Name.size() - 1 && Name.size() > 0; i++){
+				New = New + Name[i];
+			}
+			Name = New;
+			Update = 10;
+		}
+		if (glfwGetKey(window, GLFW_KEY_ENTER) || glfwGetKey(window, GLFW_KEY_ESCAPE)){
+			Save_Score();
+			Quit = true;
+		}
+		Main.Layers[1]->Button_Objects[2]->Edit_Button(Name);
 		Main.Check_All_Buttons(Layer, Button, Action);
+		if (Button == 5){
+			Save_Score();
+			Quit = true;
+		}
 		Main.Display_All_Layers();
 		Main.Frame();
 		Close();
 	}
+	Main.Clear_All_Layers();
 	return(true);
 }
 

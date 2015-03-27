@@ -26,6 +26,7 @@ private:
 	void Remove(int Number);
 	void Shift_All();
 	void Pause();
+	char Key(int key);
 public:
 	bool Games;
 	Hephaestus Main;
