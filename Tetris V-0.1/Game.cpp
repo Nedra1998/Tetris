@@ -715,12 +715,18 @@ bool Game::Classic_Game(){
 			Update = 10;
 		}
 		if (glfwGetKey(window, GLFW_KEY_ENTER) || glfwGetKey(window, GLFW_KEY_ESCAPE)){
+			if (Name == "" || Name == " "){
+				Name = "DEFAULT";
+			}
 			Save_Score();
 			Quit = true;
 		}
 		Main.Layers[1]->Button_Objects[2]->Edit_Button(Name);
 		Main.Check_All_Buttons(Layer, Button, Action);
 		if (Button == 5){
+			if (Name == "" || Name == " "){
+				Name = "DEFAULT";
+			}
 			Save_Score();
 			Quit = true;
 		}
