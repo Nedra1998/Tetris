@@ -84,7 +84,13 @@ void Game::Genorate_Shape(){
 		Main.Layers[2]->Initilize_Object(2);
 		Main.Layers[2]->Initilize_Object(2);
 		Main.Layers[2]->Initilize_Object(2);
-		Object = (rand() % 7) + 1;
+		Object = Next_Object;
+		Next_Object = ((rand() % 7) + 1);
+		Main.Layers[3]->Clear_All();
+		Main.Layers[3]->Initilize_Object(2);
+		Main.Layers[3]->Initilize_Object(2);
+		Main.Layers[3]->Initilize_Object(2);
+		Main.Layers[3]->Initilize_Object(2);
 		if (Object != 7){
 			Texture = Texture + to_string(Object);
 		}
@@ -129,6 +135,49 @@ void Game::Genorate_Shape(){
 					Main.Layers[2]->Textured_Objects[a]->Translate_Object(0.0, 0.85, 0.0);
 				}
 			}
+			Points.close();
+		}
+		Texture = "Textures/Block ";
+		if (Next_Object != 7){
+			Texture = Texture + to_string(Next_Object);
+		}
+		else{
+			Texture = Texture + to_string(4);
+		}
+		Main.Layers[3]->Textured_Objects[0]->New_Textured_Object(Texture, 4, 0.03, 0.03, 0, 0);
+		Main.Layers[3]->Textured_Objects[1]->New_Textured_Object(Texture, 4, 0.03, 0.03, 0, 0);
+		Main.Layers[3]->Textured_Objects[2]->New_Textured_Object(Texture, 4, 0.03, 0.03, 0, 0);
+		Main.Layers[3]->Textured_Objects[3]->New_Textured_Object(Texture, 4, 0.03, 0.03, 0, 0);
+		ifstream PointsN(to_string(Next_Object) + ".Points");
+		if (PointsN.is_open()){
+			for (int a = 0; a < 4; a++){
+				PointsN >> X >> Y;
+				if (X == 3){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.48, 0.0, 0.0);
+				}
+				else if (X == 4){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.54, 0.0, 0.0);
+				}
+				else if (X == 5){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.6, 0.0, 0.0);
+				}
+				else if (X == 6){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.66, 0.0, 0.0);
+				}
+				else if (X == 7){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.72, 0.0, 0.0);
+				}
+				if (Y == 19){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.0, -0.64, 0.0);
+				}
+				if (Y == 18){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.0, -0.7, 0.0);
+				}
+				if (Y == 17){
+					Main.Layers[3]->Textured_Objects[a]->Translate_Object(0.0, -0.76, 0.0);
+				}
+			}
+			PointsN.close();
 		}
 	}
 }
@@ -571,12 +620,14 @@ bool Game::Classic_Game(){
 	Score = 0;
 	Level = 0;
 	bool Falling = false, Soft_Drop = false;
+	First = true;
 	int Speed = 0, Update = 10;
 	Speed_Set = 60;
 	True_Speed = 60;
 	Total_Lines = 2;
 	New_Lines = 0;
-	Main.Create_New_Layer();
+	Next_Object = 1 + (rand() % 7);
+	cout << Next_Object << "::\n";
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();

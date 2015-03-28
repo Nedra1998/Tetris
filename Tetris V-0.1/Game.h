@@ -7,10 +7,10 @@ private:
 	int Score, Level, Speed_Set, True_Speed, New_Score, Total_Lines, New_Lines;
 	float Tic_Shift;
 	string Name;
-	bool Game_Good, Quit;
+	bool Game_Good, Quit, First;
 	GLFWwindow* window;
 	int Grid[10][20];
-	int Game_Type, Current_Object, Current_Type;
+	int Game_Type, Current_Object, Current_Type, Next_Object;
 	/*-----Functions-----*/
 	bool Classic_Game();
 	bool Insane_Game();
