@@ -443,25 +443,19 @@ bool Game::Rotate(){
 			Dir = 2;
 		}
 		if (Dir == 1){
-			cout << "One\n";
 			if (Y - 1 == -1 || Y + 2 > 19){
 				Rotate_Good = false;
-				cout << "A";
 			}
 			else if (Grid[X][Y - 1] != -1){
 				Rotate_Good = false;
-				cout << "B";
 			}
 			else if (Grid[X][Y + 1] != -1){
 				Rotate_Good = false;
-				cout << "C";
 			}
 			else if (Grid[X][Y + 2] != -1){
 				Rotate_Good = false;
-				cout << "D";
 			}
 			if (Rotate_Good == true){
-				cout << "True\n";
 				Grid[X][Y - 1] = Current_Object + 1;
 				Grid[X - 1][Y] = -1;
 				Grid[X][Y + 1] = Current_Object + 2;
@@ -474,7 +468,6 @@ bool Game::Rotate(){
 			}
 		}
 		if (Dir == 2){
-			cout << "Two\n";
 			if (X - 1 == -1 || X + 2 > 9){
 				Rotate_Good = false;
 
@@ -627,7 +620,6 @@ bool Game::Classic_Game(){
 	Total_Lines = 2;
 	New_Lines = 0;
 	Next_Object = 1 + (rand() % 7);
-	cout << Next_Object << "::\n";
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();
