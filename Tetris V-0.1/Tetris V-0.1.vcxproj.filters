@@ -149,9 +149,6 @@
     <None Include="7.Shape">
       <Filter>Text Files\Placement</Filter>
     </None>
-    <None Include="HighScores.Scores">
-      <Filter>Text Files</Filter>
-    </None>
     <None Include="1.Points">
       <Filter>Text Files\Placement\Points</Filter>
     </None>
@@ -172,6 +169,9 @@
     </None>
     <None Include="7.Points">
       <Filter>Text Files\Placement\Points</Filter>
+    </None>
+    <None Include="HighScores.Scores">
+      <Filter>Text Files</Filter>
     </None>
   </ItemGroup>
 </Project>
