@@ -11,7 +11,9 @@ struct Shape{
 };
 vector <Shape> Falling;
 int Current = 0;
+string Texture_Pack;
 void Create_Block();
+bool Texture_Check(string Texture);
 void Key_Call(GLFWwindow* Win, int key, int scancode, int action, int mods){
 	H.Key_Call_Back(Win, key, scancode, action, mods);
 	if (G.Games == true){
@@ -42,14 +44,14 @@ int main(){
 	int Stage = 0, Temp = 0;
 	bool First = true;
 	int Layer = -1, Button = -1, Action = -1, I = 0, F = 0, Update = 0;
-	string Highscores[5], Line, Resolutions[7], Texture_Pack;
+	string Highscores[5], Line, Resolutions[7];
 	bool Enter = false;
 	ifstream Settings("Game Settings.txt");
 	if (Settings.is_open()){
 		getline(Settings, Texture_Pack);
 		Settings.close();
 	}
-	H.Set_Custom_Cursor("Textures/Arrow", 0.05, 0.05);
+	H.Set_Custom_Cursor("Textures/" + Texture_Pack + "/Arrow", 0.05, 0.05);
 	while (!glfwWindowShouldClose(Win)){
 		/*>>>>>Place While Running Code Here<<<<<*/
 		if (First == true){
@@ -284,7 +286,12 @@ int main(){
 						if (New == "" || New == " "){
 							New = Texture_Pack;
 						}
-						Texture_Pack = New;
+						if (Texture_Check(New) == true){
+							Texture_Pack = New;
+						}
+						else{
+							Logging::log_information("Entered Invalid Texture Pack Location", "Texture Pack Selection");
+						}
 						Enter = false;
 						H.Layers[2]->Button_Objects[6]->Edit_Button(New);
 					}
@@ -330,7 +337,7 @@ void Create_Block(){
 	Shape Temp;
 	int Block;
 	float x1 = 0, y1 = 0, x2 = 0, y2 = 0, x3 = 0, y3 = 0, x4 = 0, y4 = 0;
-	string Texture = "Textures/Block ", Point;
+	string Texture = "Textures/" + Texture_Pack + "/Block ", Point;
 	Block = (rand() % 7);
 	Block = Block + 1;
 	if (Block == 1){
@@ -381,4 +388,16 @@ void Create_Block(){
 		H.Layers[1]->Textured_Objects[a]->Translate_Object(x, 1.3, 0.0);
 	}
 	Current = Current + 4;
+}
+bool Texture_Check(string Texture) {
+	Texture = "Textures/" + Texture + "Arrow.tga";
+	ifstream f(Texture.c_str());
+	if (f.good()) {
+		f.close();
+		return true;
+	}
+	else {
+		f.close();
+		return false;
+	}
 }
