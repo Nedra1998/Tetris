@@ -42,7 +42,13 @@ int main(){
 	int Stage = 0, Temp = 0;
 	bool First = true;
 	int Layer = -1, Button = -1, Action = -1, I = 0, F = 0, Update = 0;
-	string Highscores[5], Line, Resolutions[7];
+	string Highscores[5], Line, Resolutions[7], Texture_Pack;
+	bool Enter = false;
+	ifstream Settings("Game Settings.txt");
+	if (Settings.is_open()){
+		getline(Settings, Texture_Pack);
+		Settings.close();
+	}
 	H.Set_Custom_Cursor("Textures/Arrow", 0.05, 0.05);
 	while (!glfwWindowShouldClose(Win)){
 		/*>>>>>Place While Running Code Here<<<<<*/
@@ -59,38 +65,38 @@ int main(){
 				H.Create_New_Layer();
 				H.Create_New_Layer();
 				H.Layers[0]->Initilize_Object(2);
-				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Game", 4, 1, 1, 0, 0);
+				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Game", 4, 1, 1, 0, 0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[0]->New_Button("Play", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[0]->New_Button("Play", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[0]->Translate_Button(0.0, 0.2, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[1]->New_Button("High Scores", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[1]->New_Button("High Scores", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[1]->Translate_Button(0.0, -0.1, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[2]->New_Button("Settings", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[2]->New_Button("Settings", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[2]->Translate_Button(0.0, -0.4, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[3]->New_Button("Quit", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[3]->New_Button("Quit", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[3]->Translate_Button(0.0, -0.7, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[4]->New_Button("TETRIS", "Textures/ButtonB", "Special", 0.5, 0.2);
+				H.Layers[2]->Button_Objects[4]->New_Button("TETRIS", "Textures/" + Texture_Pack + "/ButtonB", "Special", 0.5, 0.2);
 				H.Layers[2]->Button_Objects[4]->Translate_Button(0.0, 0.7, 0.0);
 			}
 			if (Stage == 1){
 				H.Create_New_Layer();
 				H.Create_New_Layer();
 				H.Layers[0]->Initilize_Object(2);
-				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Game", 4, 1, 1, 0, 0);
+				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Game", 4, 1, 1, 0, 0);
 				H.Layers[2]->Initilize_Object(4);
 				H.Layers[2]->Initilize_Object(4);
 				H.Layers[2]->Initilize_Object(4);
 				H.Layers[2]->Initilize_Object(4);
 				H.Layers[2]->Initilize_Object(4);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[5]->New_Button("Back", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[5]->New_Button("Back", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[5]->Translate_Button(0.0, -0.8, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[6]->New_Button("TETRIS", "Textures/ButtonB", "Special", 0.5, 0.2);
+				H.Layers[2]->Button_Objects[6]->New_Button("TETRIS", "Textures/" + Texture_Pack + "/ButtonB", "Special", 0.5, 0.2);
 				H.Layers[2]->Button_Objects[6]->Translate_Button(0.0, 0.7, 0.0);
 				ifstream Scores("HighScores.Scores");
 				if (Scores.is_open()){
@@ -101,11 +107,11 @@ int main(){
 					Scores.close();
 				}
 				Temp = 0;
-				H.Layers[2]->Button_Objects[0]->New_Button(Highscores[0], "Textures/ButtonB", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[1]->New_Button(Highscores[1], "Textures/ButtonB", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[2]->New_Button(Highscores[2], "Textures/ButtonB", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[3]->New_Button(Highscores[3], "Textures/ButtonB", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[4]->New_Button(Highscores[4], "Textures/ButtonB", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[0]->New_Button(Highscores[0], "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[1]->New_Button(Highscores[1], "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[2]->New_Button(Highscores[2], "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[3]->New_Button(Highscores[3], "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[4]->New_Button(Highscores[4], "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[0]->Translate_Button(0.0, 0.3, 0.0);
 				H.Layers[2]->Button_Objects[1]->Translate_Button(0.0, 0.1, 0.0);
 				H.Layers[2]->Button_Objects[2]->Translate_Button(0.0, -0.1, 0.0);
@@ -127,19 +133,19 @@ int main(){
 				H.Create_New_Layer();
 				H.Create_New_Layer();
 				H.Layers[0]->Initilize_Object(2);
-				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Game", 4, 1, 1, 0, 0);
+				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Game", 4, 1, 1, 0, 0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[0]->New_Button("TETRIS", "Textures/ButtonB", "Special", 0.5, 0.2);
+				H.Layers[2]->Button_Objects[0]->New_Button("TETRIS", "Textures/" + Texture_Pack + "/ButtonB", "Special", 0.5, 0.2);
 				H.Layers[2]->Button_Objects[0]->Translate_Button(0.0, 0.7, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[1]->New_Button("Resolution", "Textures/Transparent", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[1]->Translate_Button(0.0, 0.3, 0.0);
+				H.Layers[2]->Button_Objects[1]->New_Button("Resolution", "Textures/" + Texture_Pack + "/Transparent", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[1]->Translate_Button(0.0, 0.4, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[2]->New_Button(Resolutions[I], "Textures/Button", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[2]->Translate_Button(0.0, 0.1, 0.0);
+				H.Layers[2]->Button_Objects[2]->New_Button(Resolutions[I], "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[2]->Translate_Button(0.0, 0.23, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[3]->New_Button("Full Screen", "Textures/Transparent", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[3]->Translate_Button(0.0, -0.1, 0.0);
+				H.Layers[2]->Button_Objects[3]->New_Button("Full Screen", "Textures/" + Texture_Pack + "/Transparent", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[3]->Translate_Button(0.0, 0.0, 0.0);
 				H.Layers[2]->Initilize_Object(4);
 				if (F == 0){
 					Line = " ";
@@ -147,31 +153,37 @@ int main(){
 				else if (F == 1){
 					Line = "X";
 				}
-				H.Layers[2]->Button_Objects[4]->New_Button(Line, "Textures/Button", "Basic/Black", 0.1, 0.1);
-				H.Layers[2]->Button_Objects[4]->Translate_Button(0.0, -0.3, 0.0);
+				H.Layers[2]->Button_Objects[4]->New_Button(Line, "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.1, 0.1);
+				H.Layers[2]->Button_Objects[4]->Translate_Button(0.0, -0.16, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[5]->New_Button("Back", "Textures/Button", "Basic/Black", 0.5, 0.1);
-				H.Layers[2]->Button_Objects[5]->Translate_Button(0.0, -0.7, 0.0);
+				H.Layers[2]->Button_Objects[5]->New_Button("Texture Pack", "Textures/" + Texture_Pack + "/Transparent", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[5]->Translate_Button(0.0, -0.35, 0.0);
+				H.Layers[2]->Initilize_Object(4);
+				H.Layers[2]->Button_Objects[6]->New_Button(Texture_Pack, "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.7, 0.1);
+				H.Layers[2]->Button_Objects[6]->Translate_Button(0.0, -0.51, 0.0);
+				H.Layers[2]->Initilize_Object(4);
+				H.Layers[2]->Button_Objects[7]->New_Button("Back", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[7]->Translate_Button(0.0, -0.8, 0.0);
 			}
 			if (Stage == 3){
 				H.Create_New_Layer();
 				H.Create_New_Layer();
 				H.Layers[0]->Initilize_Object(2);
-				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Game", 4, 1, 1, 0, 0);
+				H.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Game", 4, 1, 1, 0, 0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[0]->New_Button("Classic", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[0]->New_Button("Classic", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[0]->Translate_Button(0.0, 0.2, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[1]->New_Button("Insane", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[1]->New_Button("Insane", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[1]->Translate_Button(0.0, -0.1, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[2]->New_Button("Endless", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[2]->New_Button("Endless", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[2]->Translate_Button(0.0, -0.4, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[3]->New_Button("Back", "Textures/Button", "Basic/Black", 0.5, 0.1);
+				H.Layers[2]->Button_Objects[3]->New_Button("Back", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.1);
 				H.Layers[2]->Button_Objects[3]->Translate_Button(0.0, -0.7, 0.0);
 				H.Layers[2]->Initilize_Object(4);
-				H.Layers[2]->Button_Objects[4]->New_Button("TETRIS", "Textures/ButtonB", "Special", 0.5, 0.2);
+				H.Layers[2]->Button_Objects[4]->New_Button("TETRIS", "Textures/" + Texture_Pack + "/ButtonB", "Special", 0.5, 0.2);
 				H.Layers[2]->Button_Objects[4]->Translate_Button(0.0, 0.7, 0.0);
 			}
 		}
@@ -215,7 +227,7 @@ int main(){
 			}
 		}
 		else if (Stage == 2){
-			if (Layer == 2 && Button == 5 && Action == 0){
+			if (Layer == 2 && Button == 7 && Action == 0){
 				Stage = 0;
 				First = true;
 			}
@@ -245,22 +257,61 @@ int main(){
 				H.Win.Set_Window(I + 1, F);
 				First = true;
 			}
+			if (Layer == 2 && Button == 6 && Action == 0){
+				string New = "";
+				Enter = true;
+				H.Layers[2]->Button_Objects[6]->Edit_Button(New);
+				while (Enter == true){
+					if (Update > 0){
+						Update--;
+						H.Clear_Key();
+					}
+					if (H.Check_Key() < 97 && H.Check_Key() > 31 && Update == 0){
+						New = New + char(H.Check_Key());
+						Update = 10;
+						H.Layers[2]->Button_Objects[6]->Edit_Button(New);
+					}
+					if (glfwGetKey(Win, GLFW_KEY_BACKSPACE) && Update == 0){
+						string Temp = "";
+						for (int i = 0; i < New.size() - 1 && New.size() > 0; i++){
+							Temp = Temp + New[i];
+						}
+						New = Temp;
+						Update = 5;
+						H.Layers[2]->Button_Objects[6]->Edit_Button(New);
+					}
+					if (glfwGetKey(Win, GLFW_KEY_ENTER)){
+						if (New == "" || New == " "){
+							New = Texture_Pack;
+						}
+						Texture_Pack = New;
+						Enter = false;
+						H.Layers[2]->Button_Objects[6]->Edit_Button(New);
+					}
+					if (glfwGetKey(Win, GLFW_KEY_ESCAPE)){
+						Enter = false;
+						H.Layers[2]->Button_Objects[6]->Edit_Button(New);
+					}
+					H.Display_All_Layers();
+					H.Frame();
+				}
+			}
 		}
 		else if (Stage == 3){
 			if (Layer == 2 && Button == 0 && Action == 0){
 				H.Clear_All_Layers();
-				G.Initilize_Game(1, H, Win);
+				G.Initilize_Game(1, H, Win, Texture_Pack);
 				First = true;
 				H = G.Main;
 			}
 			if (Layer == 2 && Button == 1 && Action == 0){
 				H.Clear_All_Layers();
-				G.Initilize_Game(2, H, Win);
+				G.Initilize_Game(2, H, Win, Texture_Pack);
 				First = true;
 			}
 			if (Layer == 2 && Button == 2 && Action == 0){
 				H.Clear_All_Layers();
-				G.Initilize_Game(3, H, Win);
+				G.Initilize_Game(3, H, Win, Texture_Pack);
 				First = true;
 			}
 			if (Layer == 2 && Button == 3 && Action == 0){

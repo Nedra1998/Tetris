@@ -92,6 +92,7 @@
   <ItemGroup>
     <Text Include="Colored Fragment Shader.txt" />
     <Text Include="Colored Vertex Shader.txt" />
+    <Text Include="Game Settings.txt" />
     <Text Include="Log_File.Log" />
     <Text Include="Resolutions.txt" />
     <Text Include="Textured Fragment Shader.txt" />

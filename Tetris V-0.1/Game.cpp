@@ -4,7 +4,7 @@
 #include "Game.h"
 
 using namespace std;
-void Game::Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win){
+void Game::Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win, string Texture){
 	Games = true;
 	Current_Object = 0;
 	Main = Declaration;
@@ -18,6 +18,7 @@ void Game::Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win){
 	Total_Lines = 0;
 	New_Lines = 0;
 	Set_Grid();
+	Texture_Pack = Texture;
 	if (Game_Type == 1){
 		Classic_Game();
 	}
@@ -78,7 +79,7 @@ void Game::Close(){
 
 void Game::Genorate_Shape(){
 	int Object = 0, X, Y;
-	string Texture = "Textures/Block ";
+	string Texture = "Textures/" + Texture_Pack + "/Block ";
 	if (Game_Type == 1 || Game_Type == 3){
 		Main.Layers[2]->Initilize_Object(2);
 		Main.Layers[2]->Initilize_Object(2);
@@ -624,28 +625,28 @@ bool Game::Classic_Game(){
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();
 	Main.Layers[0]->Initilize_Object(2);
-	Main.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Menu", 4, 1, 1, 0, 0);
+	Main.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Menu", 4, 1, 1, 0, 0);
 	Main.Layers[0]->Textured_Objects[0]->Translate_Object(0.0, 0.0, 0.0);
 	Main.Layers[0]->Initilize_Object(2);
-	Main.Layers[0]->Textured_Objects[1]->New_Textured_Object("Textures/Background Game", 4, 0.5, 1, 0, 0);
+	Main.Layers[0]->Textured_Objects[1]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Game", 4, 0.5, 1, 0, 0);
 	Main.Layers[0]->Textured_Objects[1]->Translate_Object(-0.3, 0.0, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[0]->New_Button("TETRIS", "Textures/ButtonB", "Special", 0.35, 0.15);
+	Main.Layers[1]->Button_Objects[0]->New_Button("TETRIS", "Textures/" + Texture_Pack + "/ButtonB", "Special", 0.35, 0.15);
 	Main.Layers[1]->Button_Objects[0]->Translate_Button(0.6, 0.8, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[1]->New_Button("Score", "Textures/ButtonB", "Basic/Black", 0.3, 0.1);
+	Main.Layers[1]->Button_Objects[1]->New_Button("Score", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.1);
 	Main.Layers[1]->Button_Objects[1]->Translate_Button(0.6, 0.5, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[2]->New_Button("Level", "Textures/ButtonB", "Basic/Black", 0.3, 0.1);
+	Main.Layers[1]->Button_Objects[2]->New_Button("Level", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.1);
 	Main.Layers[1]->Button_Objects[2]->Translate_Button(0.6, -0.1, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[3]->New_Button("", "Textures/ButtonB", "Basic/Black", 0.2, 0.2);
+	Main.Layers[1]->Button_Objects[3]->New_Button("", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.2, 0.2);
 	Main.Layers[1]->Button_Objects[3]->Translate_Button(0.6, -0.7, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[4]->New_Button(to_string(Score), "Textures/ButtonB", "Basic/Black", 0.3, 0.1);
+	Main.Layers[1]->Button_Objects[4]->New_Button(to_string(Score), "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.1);
 	Main.Layers[1]->Button_Objects[4]->Translate_Button(0.6, 0.28, 0.0);
 	Main.Layers[1]->Initilize_Object(4);
-	Main.Layers[1]->Button_Objects[5]->New_Button(to_string(Level), "Textures/ButtonB", "Basic/Black", 0.3, 0.1);
+	Main.Layers[1]->Button_Objects[5]->New_Button(to_string(Level), "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.1);
 	Main.Layers[1]->Button_Objects[5]->Translate_Button(0.6, -0.32, 0.0);
 	
 	while (Game_Good == true){
@@ -719,24 +720,24 @@ bool Game::Classic_Game(){
 		Name = "";
 		Main.Create_New_Layer();
 		Main.Layers[0]->Initilize_Object(2);
-		Main.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/Background Menu", 4, 1, 1, 0, 0);
+		Main.Layers[0]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/Background Menu", 4, 1, 1, 0, 0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[0]->New_Button("Save Score", "Textures/ButtonB", "Basic/Black", 0.5, 0.2);
+		Main.Layers[1]->Button_Objects[0]->New_Button("Save Score", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.5, 0.2);
 		Main.Layers[1]->Button_Objects[0]->Translate_Button(0.0, 0.7, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[1]->New_Button("Name", "Textures/ButtonB", "Basic/Black", 0.3, 0.15);
+		Main.Layers[1]->Button_Objects[1]->New_Button("Name", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.15);
 		Main.Layers[1]->Button_Objects[1]->Translate_Button(-0.6, 0.3, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[2]->New_Button("", "Textures/ButtonB", "Basic/Black", 0.55, 0.15);
+		Main.Layers[1]->Button_Objects[2]->New_Button("", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.55, 0.15);
 		Main.Layers[1]->Button_Objects[2]->Translate_Button(0.4, 0.3, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[3]->New_Button("Score", "Textures/ButtonB", "Basic/Black", 0.3, 0.15);
+		Main.Layers[1]->Button_Objects[3]->New_Button("Score", "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.15);
 		Main.Layers[1]->Button_Objects[3]->Translate_Button(-0.6, -0.1, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[4]->New_Button(to_string(Score), "Textures/ButtonB", "Basic/Black", 0.55, 0.15);
+		Main.Layers[1]->Button_Objects[4]->New_Button(to_string(Score), "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.55, 0.15);
 		Main.Layers[1]->Button_Objects[4]->Translate_Button(0.4, -0.1, 0.0);
 		Main.Layers[1]->Initilize_Object(4);
-		Main.Layers[1]->Button_Objects[5]->New_Button("Main Menu", "Textures/Button", "Basic/Black", 0.5, 0.15);
+		Main.Layers[1]->Button_Objects[5]->New_Button("Main Menu", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.5, 0.15);
 		Main.Layers[1]->Button_Objects[5]->Translate_Button(0.0, -0.5, 0.0);
 	}
 	while (Quit == false){

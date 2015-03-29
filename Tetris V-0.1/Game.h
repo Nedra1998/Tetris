@@ -6,7 +6,7 @@ private:
 	/*-----Variables-----*/
 	int Score, Level, Speed_Set, True_Speed, New_Score, Total_Lines, New_Lines;
 	float Tic_Shift;
-	string Name;
+	string Name, Texture_Pack;
 	bool Game_Good, Quit, First;
 	GLFWwindow* window;
 	int Grid[10][20];
@@ -30,5 +30,5 @@ private:
 public:
 	bool Games;
 	Hephaestus Main;
-	void Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win);
+	void Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win, string Texture);
 };

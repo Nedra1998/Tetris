@@ -123,6 +123,9 @@
     <Text Include="Textured Vertex Shader.txt">
       <Filter>Text Files\Shaders</Filter>
     </Text>
+    <Text Include="Game Settings.txt">
+      <Filter>Text Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="DEV.data">
