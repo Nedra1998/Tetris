@@ -1,0 +1,14 @@
+Mon Mar 30 18:02:26 2015
+[SUCCESS]>>Opened Log File<<[Logging]
+[SUCCESS]>>Loaded Window Data<<[Window]
+[INFORMATION]>>Windowed Mode Enabled<<[Window]
+[SUCCESS]>>Loaded Resolution<<[Window]
+[INFORMATION]>>Resoulution Of Window Is:[800:600]<<[Window]
+[SUCCESS]>>Loaded GLFW<<[Window]
+[SUCCESS]>>Loaded GLEW<<[Window]
+[SUCCESS]>>Loaded Renderer<<[Window]
+[SUCCESS]>>Loaded Version<<[Window]
+[SUCCESS]>>Opened Textured Vertex Shader.txt<<[Shaders]
+[SUCCESS]>>Opened Textured Fragment Shader.txt<<[Shaders]
+[SUCCESS]>>Closed Log File<<[Logging]
+Mon Mar 30 18:03:01 2015

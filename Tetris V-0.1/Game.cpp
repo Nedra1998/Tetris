@@ -138,7 +138,7 @@ void Game::Genorate_Shape(){
 			}
 			Points.close();
 		}
-		Texture = "Textures/Block ";
+		Texture = "Textures/" + Texture_Pack + "/Block ";
 		if (Next_Object != 7){
 			Texture = Texture + to_string(Next_Object);
 		}
@@ -568,15 +568,15 @@ void Game::Pause(){
 	bool Pause_Good = true;
 	int Layer = -1, Button = -1, Action = -1, Update = 15;
 	Main.Layers[3]->Initilize_Object(2);
-	Main.Layers[3]->Textured_Objects[0]->New_Textured_Object("Textures/In Game Menu", 4, 0.5, 0.8, 0, 0);
+	Main.Layers[3]->Textured_Objects[0]->New_Textured_Object("Textures/" + Texture_Pack + "/In Game Menu", 4, 0.5, 0.8, 0, 0);
 	Main.Layers[4]->Initilize_Object(4);
-	Main.Layers[4]->Button_Objects[0]->New_Button("PAUSE", "Textures/Transparent", "Basic/Black", 0.35, 0.15);
+	Main.Layers[4]->Button_Objects[0]->New_Button("PAUSE", "Textures/" + Texture_Pack + "/Transparent", "Basic/Black", 0.35, 0.15);
 	Main.Layers[4]->Button_Objects[0]->Translate_Button(0.0, 0.55, 0.0);
 	Main.Layers[4]->Initilize_Object(4);
-	Main.Layers[4]->Button_Objects[1]->New_Button("Resume", "Textures/Button", "Basic/Black", 0.35, 0.15);
+	Main.Layers[4]->Button_Objects[1]->New_Button("Resume", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.35, 0.15);
 	Main.Layers[4]->Button_Objects[1]->Translate_Button(0.0, 0.2, 0.0);
 	Main.Layers[4]->Initilize_Object(4);
-	Main.Layers[4]->Button_Objects[2]->New_Button("Quit", "Textures/Button", "Basic/Black", 0.35, 0.15);
+	Main.Layers[4]->Button_Objects[2]->New_Button("Quit", "Textures/" + Texture_Pack + "/Button", "Basic/Black", 0.35, 0.15);
 	Main.Layers[4]->Button_Objects[2]->Translate_Button(0.0, -0.2, 0.0);
 	while (Pause_Good == true && Game_Good == true){
 		if (Update > 0){
@@ -621,6 +621,7 @@ bool Game::Classic_Game(){
 	Total_Lines = 2;
 	New_Lines = 0;
 	Next_Object = 1 + (rand() % 7);
+	Main.Create_New_Layer();
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();
 	Main.Create_New_Layer();

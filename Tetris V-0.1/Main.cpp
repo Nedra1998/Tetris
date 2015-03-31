@@ -288,6 +288,14 @@ int main(){
 						}
 						if (Texture_Check(New) == true){
 							Texture_Pack = New;
+							ofstream Out("Game Settings.txt");
+							if (Out.is_open()){
+								Out << Texture_Pack;
+								Out.close();
+							}
+							else{
+								cout << "Nope?\n";
+							}
 						}
 						else{
 							Logging::log_information("Entered Invalid Texture Pack Location", "Texture Pack Selection");
@@ -390,7 +398,8 @@ void Create_Block(){
 	Current = Current + 4;
 }
 bool Texture_Check(string Texture) {
-	Texture = "Textures/" + Texture + "Arrow.tga";
+	Texture = "Textures/" + Texture + "/Arrow.tga";
+	cout << Texture << endl;
 	ifstream f(Texture.c_str());
 	if (f.good()) {
 		f.close();
