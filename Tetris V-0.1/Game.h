@@ -10,10 +10,10 @@ private:
 	bool Game_Good, Quit, First;
 	GLFWwindow* window;
 	int Grid[10][20];
+	int Temp_Grid_1[3][3];
 	int Game_Type, Current_Object, Current_Type, Next_Object;
 	/*-----Functions-----*/
 	bool Classic_Game();
-	bool Insane_Game();
 	bool Endless_Game();
 	void Save_Score();
 	void Close();
@@ -21,6 +21,7 @@ private:
 	bool Fall_Shape();
 	bool Shift(int direction);
 	bool Rotate();
+	bool Check_Avalible(int x, int y);
 	void Set_Grid();
 	void Clear_Line();
 	void Remove(int Number);

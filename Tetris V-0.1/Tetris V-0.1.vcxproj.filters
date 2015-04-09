@@ -176,5 +176,11 @@
     <None Include="HighScores.Scores">
       <Filter>Text Files</Filter>
     </None>
+    <None Include="Current.Points">
+      <Filter>Text Files\Placement\Points</Filter>
+    </None>
+    <None Include="Next.Points">
+      <Filter>Text Files\Placement\Points</Filter>
+    </None>
   </ItemGroup>
 </Project>

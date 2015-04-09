@@ -19,11 +19,8 @@ void Game::Initilize_Game(int Type, Hephaestus Declaration, GLFWwindow* Win, str
 	New_Lines = 0;
 	Set_Grid();
 	Texture_Pack = Texture;
-	if (Game_Type == 1){
+	if (Game_Type == 1 || Game_Type == 2){
 		Classic_Game();
-	}
-	if (Game_Type == 2){
-		Insane_Game();
 	}
 	if (Game_Type == 3){
 		Endless_Game();
@@ -181,7 +178,11 @@ void Game::Genorate_Shape(){
 			PointsN.close();
 		}
 	}
+	if (Game_Type == 2){
+
+	}
 }
+
 
 bool Game::Fall_Shape(){
 	for (int a = 0; a < 20; a++){
@@ -272,10 +273,25 @@ bool Game::Shift(int direction){
 	return(true);
 }
 
+bool Game::Check_Avalible(int x, int y){
+	bool Avalible = false;
+
+	for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+		if (Temp_Grid_1[x][y] == i){
+			Avalible = true;
+		}
+	}
+	if (Temp_Grid_1[x][y] == -1){
+		Avalible = true;
+	}
+
+	return(Avalible);
+}
+
 bool Game::Rotate(){
 	bool Rotate_Good = true;
 	if (Current_Type != 1){
-		int Temp_Grid_1[3][3], Temp_Grid_2[3][3];
+		int Temp_Grid_2[3][3];
 		int Center_X, Center_Y, x, y;
 		for (int a = 0; a < 20; a++){
 			for (int b = 0; b < 10; b++){
@@ -308,7 +324,7 @@ bool Game::Rotate(){
 						Temp_Grid_2[1][1] = Temp_Grid_1[1][1];
 					}
 					else if (a == 0 && b == 0){
-						if (Temp_Grid_1[2][0] == Current_Object || Temp_Grid_1[2][0] == Current_Object + 1 || Temp_Grid_1[2][0] == Current_Object + 2 || Temp_Grid_1[2][0] == Current_Object + 3 || Temp_Grid_1[2][0] == -1){
+						if (Check_Avalible(2, 0) == true){
 							Temp_Grid_2[2][0] = Temp_Grid_1[0][0];
 						}
 						else{
@@ -316,7 +332,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 0){
-						if (Temp_Grid_1[2][2] == Current_Object || Temp_Grid_1[2][2] == Current_Object + 1 || Temp_Grid_1[2][2] == Current_Object + 2 || Temp_Grid_1[2][2] == Current_Object + 3 || Temp_Grid_1[2][2] == -1){
+						if (Check_Avalible(2, 2) == true){
 							Temp_Grid_2[2][2] = Temp_Grid_1[2][0];
 						}
 						else{
@@ -324,7 +340,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 2){
-						if (Temp_Grid_1[0][2] == Current_Object || Temp_Grid_1[0][2] == Current_Object + 1 || Temp_Grid_1[0][2] == Current_Object + 2 || Temp_Grid_1[0][2] == Current_Object + 3 || Temp_Grid_1[0][2] == -1){
+						if (Check_Avalible(0, 2) == true){
 							Temp_Grid_2[0][2] = Temp_Grid_1[2][2];
 						}
 						else{
@@ -332,7 +348,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 0 && b == 2){
-						if (Temp_Grid_1[0][0] == Current_Object || Temp_Grid_1[0][0] == Current_Object + 1 || Temp_Grid_1[0][0] == Current_Object + 2 || Temp_Grid_1[0][0] == Current_Object + 3 || Temp_Grid_1[0][0] == -1){
+						if (Check_Avalible(0, 0) == true){
 							Temp_Grid_2[0][0] = Temp_Grid_1[0][2];
 						}
 						else{
@@ -341,7 +357,7 @@ bool Game::Rotate(){
 					}
 
 					else if (a == 1 && b == 0){
-						if (Temp_Grid_1[2][1] == Current_Object || Temp_Grid_1[2][1] == Current_Object + 1 || Temp_Grid_1[2][1] == Current_Object + 2 || Temp_Grid_1[2][1] == Current_Object + 3 || Temp_Grid_1[2][1] == -1){
+						if (Check_Avalible(2, 1) == true){
 							Temp_Grid_2[2][1] = Temp_Grid_1[1][0];
 						}
 						else{
@@ -349,7 +365,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 1){
-						if (Temp_Grid_1[1][2] == Current_Object || Temp_Grid_1[1][2] == Current_Object + 1 || Temp_Grid_1[1][2] == Current_Object + 2 || Temp_Grid_1[1][2] == Current_Object + 3 || Temp_Grid_1[1][2] == -1){
+						if (Check_Avalible(1, 2) == true){
 							Temp_Grid_2[1][2] = Temp_Grid_1[2][1];
 						}
 						else{
@@ -357,7 +373,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 1 && b == 2){
-						if (Temp_Grid_1[0][1] == Current_Object || Temp_Grid_1[0][1] == Current_Object + 1 || Temp_Grid_1[0][1] == Current_Object + 2 || Temp_Grid_1[0][1] == Current_Object + 3 || Temp_Grid_1[0][1] == -1){
+						if (Check_Avalible(0, 1) == true){
 							Temp_Grid_2[0][1] = Temp_Grid_1[1][2];
 						}
 						else{
@@ -365,7 +381,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 0 && b == 1){
-						if (Temp_Grid_1[1][0] == Current_Object || Temp_Grid_1[1][0] == Current_Object + 1 || Temp_Grid_1[1][0] == Current_Object + 2 || Temp_Grid_1[1][0] == Current_Object + 3 || Temp_Grid_1[1][0] == -1){
+						if (Check_Avalible(1, 0) == true){
 							Temp_Grid_2[1][0] = Temp_Grid_1[0][1];
 						}
 						else{
@@ -401,11 +417,17 @@ bool Game::Rotate(){
 				}
 			}
 			y = 0;
+
+			for (int c = 0; c < 3; c++){
+				for (int d = 0; d < 3; d++){
+					Temp_Grid_1[c][d] = Temp_Grid_2[c][d];
+				}
+			}
 			for (int a = (Center_Y + 1); a > (Center_Y - 2); a--){
 				x = 0;
 				for (int b = Center_X - 1; b < Center_X + 2; b++){
 					Grid[b][a] = Temp_Grid_2[x][y];
-					if (Temp_Grid_2[x][y] == Current_Object || Temp_Grid_2[x][y] == Current_Object + 1 || Temp_Grid_2[x][y] == Current_Object + 2 || Temp_Grid_2[x][y] == Current_Object + 3){
+					if (Check_Avalible(x,y) == true && Temp_Grid_2[x][y] != -1){
 						if (x == 0){
 							Main.Layers[2]->Textured_Objects[Temp_Grid_2[x][y]]->Translate_Object(-0.1, 0.0, 0.0);
 						}
@@ -780,10 +802,6 @@ bool Game::Classic_Game(){
 		Close();
 	}
 	Main.Clear_All_Layers();
-	return(true);
-}
-
-bool Game::Insane_Game(){
 	return(true);
 }
 

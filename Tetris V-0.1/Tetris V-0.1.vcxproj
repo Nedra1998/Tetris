@@ -107,6 +107,7 @@
     <None Include="5.Points" />
     <None Include="6.Points" />
     <None Include="7.Points" />
+    <None Include="Current.Points" />
     <None Include="DEV.data" />
     <None Include="1.Shape" />
     <None Include="2.Shape" />
@@ -116,6 +117,7 @@
     <None Include="6.Shape" />
     <None Include="7.Shape" />
     <None Include="HighScores.Scores" />
+    <None Include="Next.Points" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
