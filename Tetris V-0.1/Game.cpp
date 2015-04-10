@@ -179,15 +179,114 @@ void Game::Genorate_Shape(){
 		}
 	}
 	if (Game_Type == 2){
-
+		cout << "a";
+		int Number = Create_Random_Shape();
+		Texture = Texture + to_string((rand() % 6) + 1);
+		cout << "b";
+		for (int i = 0; i < Number + 1; i++){
+			Main.Layers[2]->Initilize_Object(2);
+			Main.Layers[2]->Textured_Objects[i]->New_Textured_Object(Texture, 4, 0.05, 0.05, 0, 0);
+			Main.Layers[2]->Textured_Objects[i]->Translate_Object(-0.15, 1.05, 0.0);
+		}
+		cout << "d\n";
+		for (int a = 0; a < 3; a++){
+			for (int b = 0; b < 3; b++){
+				if (Temp_Grid_1[b][a] != -1){
+					cout << "[" << b << "," << a << "] = " << Temp_Grid_1[b][a] << "\n";
+					for (int c = b; c > 0; c--){
+						Main.Layers[2]->Textured_Objects[Temp_Grid_1[b][a]]->Translate_Object(-0.1, 0.0, 0.0);
+					}
+					for (int c = b; c > 0; c--){
+						Main.Layers[2]->Textured_Objects[Temp_Grid_1[b][a]]->Translate_Object(0.0, -0.1, 0.0);
+					}
+					Grid[b + 4][a + 17] = Temp_Grid_1[b][a];
+				}
+			}
+		}
+		cout << "e";
 	}
+	cout << "\n\n\n";
+	for (int a = 20; a > 0; a--){
+		cout << "|";
+		for (int b = 0; b < 10; b++){
+			cout << Grid[b][a] << "|";
+		}
+		cout << "\n";
+	}
+	cout << "\n\n\n";
 }
 
+int Game::Create_Random_Shape(){
+	int Number_of_Blocks = 0, Current_Spot = 0, Objects = Current_Object + 1, End;
+	Number_of_Blocks = (rand() % 8);
+	End = Number_of_Blocks;
+	for (int a = 0; a < 3; a++){
+		for (int b = 0; b < 3; b++){
+			Temp_Grid_1[b][a] = -1;
+		}
+	}
+	Temp_Grid_1[1][1] = Current_Object;
+	while (Number_of_Blocks > 0){
+		if (Current_Spot == 0 && (rand() % 2) == 0){
+			Temp_Grid_1[0][0] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 1 && (rand() % 2) == 0){
+			Temp_Grid_1[1][0] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 2 && (rand() % 2) == 0){
+			Temp_Grid_1[2][0] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 3 && (rand() % 2) == 0){
+			Temp_Grid_1[0][1] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 4 && (rand() % 2) == 0){
+			Temp_Grid_1[2][1] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 5 && (rand() % 2) == 0){
+			Temp_Grid_1[0][2] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 6 && (rand() % 2) == 0){
+			Temp_Grid_1[1][2] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		if (Current_Spot == 7 && (rand() % 2) == 0){
+			Temp_Grid_1[2][2] = Objects;
+			Objects++;
+			Number_of_Blocks--;
+		}
+		Current_Spot++;
+		if (Current_Spot == 8){
+			Current_Spot = 0;
+		}
+	}
+	cout << "\n\n-------\n";
+	for (int a = 0; a < 3; a++){
+		cout << "|";
+		for (int b = 0; b < 3; b++){
+			cout << Temp_Grid_1[b][a] << "|";
+		}
+		cout << "\n-------\n";
+	}
+	return(End);
+}
 
 bool Game::Fall_Shape(){
 	for (int a = 0; a < 20; a++){
 		for (int b = 0; b < 10; b++){
-			if (Grid[b][a] == Current_Object || Grid[b][a] == Current_Object + 1 || Grid[b][a] == Current_Object + 2 || Grid[b][a] == Current_Object + 3){
+			if (Check_Avalible(b, a, 4) == true){
 				if (a == 0){
 					return(false);
 				}
@@ -218,12 +317,12 @@ bool Game::Shift(int direction){
 	f = Current_Object + 3;
 	for (int a = 0; a < 20; a++){
 		for (int b = 0; b < 10; b++){
-			if (Grid[b][a] == c || Grid[b][a] == d || Grid[b][a] == e || Grid[b][a] == f){
+			if (Check_Avalible(b, a, 4) == true){
 				if (direction > 0){
 					if (b + 1 == 10){
 						return(false);
 					}
-					if (Grid[b + 1][a] != c && Grid[b + 1][a] != d && Grid[b + 1][a] != e && Grid[b + 1][a] != f && Grid[b + 1][a] != -1){
+					if (Check_Avalible(b + 1, a, 3) == false){
 						return(false);
 					}
 				}
@@ -231,7 +330,7 @@ bool Game::Shift(int direction){
 					if (b - 1 == -1){
 						return(false);
 					}
-					if (Grid[b - 1][a] != c && Grid[b - 1][a] != d && Grid[b - 1][a] != e && Grid[b - 1][a] != f && Grid[b - 1][a] != -1){
+					if (Check_Avalible(b - 1, a, 3) == false){
 						return(false);
 					}
 				}
@@ -241,7 +340,7 @@ bool Game::Shift(int direction){
 	for (int a = 0; a < 20; a++){
 		if (direction > 0){
 			for (int b = 9; b > -1; b--){
-				if (Grid[b][a] == Current_Object || Grid[b][a] == Current_Object + 1 || Grid[b][a] == Current_Object + 2 || Grid[b][a] == Current_Object + 3){
+				if (Check_Avalible(b, a, 4) == true){
 					if (b == 10){
 						return(false);
 					}
@@ -256,7 +355,7 @@ bool Game::Shift(int direction){
 		}
 		else if (direction < 0){
 			for (int b = 0; b < 10; b++){
-				if (Grid[b][a] == Current_Object || Grid[b][a] == Current_Object + 1 || Grid[b][a] == Current_Object + 2 || Grid[b][a] == Current_Object + 3){
+				if (Check_Avalible(b, a, 4) == true){
 					if (b == -1){
 						return(false);
 					}
@@ -273,18 +372,42 @@ bool Game::Shift(int direction){
 	return(true);
 }
 
-bool Game::Check_Avalible(int x, int y){
+bool Game::Check_Avalible(int x, int y, int form){
 	bool Avalible = false;
-
-	for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
-		if (Temp_Grid_1[x][y] == i){
+	if (form == 1){
+		for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+			if (Temp_Grid_1[x][y] == i){
+				Avalible = true;
+			}
+		}
+		if (Temp_Grid_1[x][y] == -1){
 			Avalible = true;
 		}
 	}
-	if (Temp_Grid_1[x][y] == -1){
-		Avalible = true;
+	if (form == 2){
+		for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+			if (Temp_Grid_1[x][y] == i){
+				Avalible = true;
+			}
+		}
 	}
-
+	if (form == 3){
+		for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+			if (Grid[x][y] == i){
+				Avalible = true;
+			}
+		}
+		if (Grid[x][y] == -1){
+			Avalible = true;
+		}
+	}
+	if (form == 4){
+		for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+			if (Grid[x][y] == i){
+				Avalible = true;
+			}
+		}
+	}
 	return(Avalible);
 }
 
@@ -309,7 +432,7 @@ bool Game::Rotate(){
 				Temp_Grid_2[a][b] = -1;
 			}
 		}
-		for (int a = (Center_Y + 1); a > (Center_Y - 2); a--){
+		for (int a = (Center_Y + 1); a >(Center_Y - 2); a--){
 			x = 0;
 			for (int b = Center_X - 1; b < Center_X + 2; b++){
 				Temp_Grid_1[x][y] = Grid[b][a];
@@ -324,7 +447,7 @@ bool Game::Rotate(){
 						Temp_Grid_2[1][1] = Temp_Grid_1[1][1];
 					}
 					else if (a == 0 && b == 0){
-						if (Check_Avalible(2, 0) == true){
+						if (Check_Avalible(2, 0, 1) == true){
 							Temp_Grid_2[2][0] = Temp_Grid_1[0][0];
 						}
 						else{
@@ -332,7 +455,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 0){
-						if (Check_Avalible(2, 2) == true){
+						if (Check_Avalible(2, 2, 1) == true){
 							Temp_Grid_2[2][2] = Temp_Grid_1[2][0];
 						}
 						else{
@@ -340,7 +463,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 2){
-						if (Check_Avalible(0, 2) == true){
+						if (Check_Avalible(0, 2, 1) == true){
 							Temp_Grid_2[0][2] = Temp_Grid_1[2][2];
 						}
 						else{
@@ -348,7 +471,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 0 && b == 2){
-						if (Check_Avalible(0, 0) == true){
+						if (Check_Avalible(0, 0, 1) == true){
 							Temp_Grid_2[0][0] = Temp_Grid_1[0][2];
 						}
 						else{
@@ -357,7 +480,7 @@ bool Game::Rotate(){
 					}
 
 					else if (a == 1 && b == 0){
-						if (Check_Avalible(2, 1) == true){
+						if (Check_Avalible(2, 1, 1) == true){
 							Temp_Grid_2[2][1] = Temp_Grid_1[1][0];
 						}
 						else{
@@ -365,7 +488,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 2 && b == 1){
-						if (Check_Avalible(1, 2) == true){
+						if (Check_Avalible(1, 2, 1) == true){
 							Temp_Grid_2[1][2] = Temp_Grid_1[2][1];
 						}
 						else{
@@ -373,7 +496,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 1 && b == 2){
-						if (Check_Avalible(0, 1) == true){
+						if (Check_Avalible(0, 1, 1) == true){
 							Temp_Grid_2[0][1] = Temp_Grid_1[1][2];
 						}
 						else{
@@ -381,7 +504,7 @@ bool Game::Rotate(){
 						}
 					}
 					else if (a == 0 && b == 1){
-						if (Check_Avalible(1, 0) == true){
+						if (Check_Avalible(1, 0, 1) == true){
 							Temp_Grid_2[1][0] = Temp_Grid_1[0][1];
 						}
 						else{
@@ -423,11 +546,11 @@ bool Game::Rotate(){
 					Temp_Grid_1[c][d] = Temp_Grid_2[c][d];
 				}
 			}
-			for (int a = (Center_Y + 1); a > (Center_Y - 2); a--){
+			for (int a = (Center_Y + 1); a >(Center_Y - 2); a--){
 				x = 0;
 				for (int b = Center_X - 1; b < Center_X + 2; b++){
 					Grid[b][a] = Temp_Grid_2[x][y];
-					if (Check_Avalible(x,y) == true && Temp_Grid_2[x][y] != -1){
+					if (Check_Avalible(x, y, 2) == true){
 						if (x == 0){
 							Main.Layers[2]->Textured_Objects[Temp_Grid_2[x][y]]->Translate_Object(-0.1, 0.0, 0.0);
 						}
@@ -534,7 +657,7 @@ void Game::Clear_Line(){
 			Lines.push_back(i);
 			Cleared++;
 		}
-		
+
 	}
 	for (unsigned l = 0; l < Lines.size(); l++){
 		for (int x = 0; x < 10; x++){
@@ -577,7 +700,7 @@ void Game::Remove(int Number){
 void Game::Shift_All(){
 	for (int y = 1; y < 20; y++){
 		for (int x = 0; x < 10; x++){
-			if (Grid[x][y] != -1 && Grid[x][y-1] == -1){
+			if (Grid[x][y] != -1 && Grid[x][y - 1] == -1){
 				Grid[x][y - 1] = Grid[x][y];
 				Main.Layers[2]->Textured_Objects[Grid[x][y]]->Translate_Object(0.0, -0.1, 0.0);
 				Grid[x][y] = -1;
@@ -671,34 +794,40 @@ bool Game::Classic_Game(){
 	Main.Layers[1]->Initilize_Object(4);
 	Main.Layers[1]->Button_Objects[5]->New_Button(to_string(Level), "Textures/" + Texture_Pack + "/ButtonB", "Basic/Black", 0.3, 0.1);
 	Main.Layers[1]->Button_Objects[5]->Translate_Button(0.6, -0.32, 0.0);
-	
 	while (Game_Good == true){
 		if (Falling == false){
+			//cout << "0";
 			Genorate_Shape();
+			//cout << "1";
 			Falling = true;
 		}
+		//cout << "2";
 		if (Speed == 0 || Soft_Drop == true){
 			Speed = Speed_Set;
 			Main.Layers[2]->Textured_Objects[Current_Object]->Translate_Object(0.0, -0.1, 0.0);
-			Main.Layers[2]->Textured_Objects[Current_Object + 1]->Translate_Object(0.0, -0.1, 0.0);
-			Main.Layers[2]->Textured_Objects[Current_Object + 2]->Translate_Object(0.0, -0.1, 0.0);
-			Main.Layers[2]->Textured_Objects[Current_Object + 3]->Translate_Object(0.0, -0.1, 0.0);
+			for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
+				Main.Layers[2]->Textured_Objects[i]->Translate_Object(0.0, -0.1, 0.0);
+			}
 			if (Fall_Shape() == false){
 				Falling = false;
-				Current_Object = Current_Object + 4;
+				Current_Object = Main.Layers[2]->Textured_Objects.size();
 			}
 			if (Soft_Drop == true){
 				New_Score = Score + 1;
 				Soft_Drop = false;
 			}
 		}
+		//cout << "3";
 		if (Speed > 0){
 			Speed--;
 		}
+		//cout << "4";
 		if (Update > 0){
 			Update--;
 		}
+		//cout << "5";
 		Speed_Set = True_Speed;
+		//cout << "6";
 		if (Update == 0){
 			if (glfwGetKey(window, GLFW_KEY_RIGHT)){
 				Shift(1);
@@ -717,13 +846,16 @@ bool Game::Classic_Game(){
 		else if (glfwGetKey(window, GLFW_KEY_DOWN)){
 			Soft_Drop = true;
 		}
+		//cout << "7";
 		if (Falling == false){
 			Clear_Line();
 		}
+		//cout << "8";
 		if (New_Score != Score){
 			Score = New_Score;
 			Main.Layers[1]->Button_Objects[4]->Edit_Button(to_string(Score));
 		}
+		//cout << "9";
 		if (New_Lines >= Total_Lines){
 			Level++;
 			if (True_Speed > 1){
@@ -733,6 +865,7 @@ bool Game::Classic_Game(){
 			Total_Lines = Total_Lines + ((Level + 1));
 			Main.Layers[1]->Button_Objects[5]->Edit_Button(to_string(Level));
 		}
+		//cout << "10\n";
 		Main.Display_All_Layers();
 		Main.Frame();
 		Close();

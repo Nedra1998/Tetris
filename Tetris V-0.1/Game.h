@@ -21,13 +21,14 @@ private:
 	bool Fall_Shape();
 	bool Shift(int direction);
 	bool Rotate();
-	bool Check_Avalible(int x, int y);
+	bool Check_Avalible(int x, int y, int form);
 	void Set_Grid();
 	void Clear_Line();
 	void Remove(int Number);
 	void Shift_All();
 	void Pause();
 	char Key(int key);
+	int Create_Random_Shape();
 public:
 	bool Games;
 	Hephaestus Main;
