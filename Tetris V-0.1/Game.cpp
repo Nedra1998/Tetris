@@ -179,20 +179,16 @@ void Game::Genorate_Shape(){
 		}
 	}
 	if (Game_Type == 2){
-		cout << "a";
 		int Number = Create_Random_Shape();
 		Texture = Texture + to_string((rand() % 6) + 1);
-		cout << "b";
 		for (int i = 0; i < Number + 1; i++){
 			Main.Layers[2]->Initilize_Object(2);
 			Main.Layers[2]->Textured_Objects[i]->New_Textured_Object(Texture, 4, 0.05, 0.05, 0, 0);
 			Main.Layers[2]->Textured_Objects[i]->Translate_Object(-0.15, 1.05, 0.0);
 		}
-		cout << "d\n";
 		for (int a = 0; a < 3; a++){
 			for (int b = 0; b < 3; b++){
 				if (Temp_Grid_1[b][a] != -1){
-					cout << "[" << b << "," << a << "] = " << Temp_Grid_1[b][a] << "\n";
 					for (int c = b; c > 0; c--){
 						Main.Layers[2]->Textured_Objects[Temp_Grid_1[b][a]]->Translate_Object(-0.1, 0.0, 0.0);
 					}
@@ -203,17 +199,7 @@ void Game::Genorate_Shape(){
 				}
 			}
 		}
-		cout << "e";
 	}
-	cout << "\n\n\n";
-	for (int a = 20; a > 0; a--){
-		cout << "|";
-		for (int b = 0; b < 10; b++){
-			cout << Grid[b][a] << "|";
-		}
-		cout << "\n";
-	}
-	cout << "\n\n\n";
 }
 
 int Game::Create_Random_Shape(){
@@ -310,11 +296,6 @@ void Game::Set_Grid(){
 }
 
 bool Game::Shift(int direction){
-	int c, d, e, f;
-	c = Current_Object;
-	d = Current_Object + 1;
-	e = Current_Object + 2;
-	f = Current_Object + 3;
 	for (int a = 0; a < 20; a++){
 		for (int b = 0; b < 10; b++){
 			if (Check_Avalible(b, a, 4) == true){
@@ -796,15 +777,11 @@ bool Game::Classic_Game(){
 	Main.Layers[1]->Button_Objects[5]->Translate_Button(0.6, -0.32, 0.0);
 	while (Game_Good == true){
 		if (Falling == false){
-			//cout << "0";
 			Genorate_Shape();
-			//cout << "1";
 			Falling = true;
 		}
-		//cout << "2";
 		if (Speed == 0 || Soft_Drop == true){
 			Speed = Speed_Set;
-			Main.Layers[2]->Textured_Objects[Current_Object]->Translate_Object(0.0, -0.1, 0.0);
 			for (unsigned i = Current_Object; i < Main.Layers[2]->Textured_Objects.size(); i++){
 				Main.Layers[2]->Textured_Objects[i]->Translate_Object(0.0, -0.1, 0.0);
 			}
@@ -817,17 +794,13 @@ bool Game::Classic_Game(){
 				Soft_Drop = false;
 			}
 		}
-		//cout << "3";
 		if (Speed > 0){
 			Speed--;
 		}
-		//cout << "4";
 		if (Update > 0){
 			Update--;
 		}
-		//cout << "5";
 		Speed_Set = True_Speed;
-		//cout << "6";
 		if (Update == 0){
 			if (glfwGetKey(window, GLFW_KEY_RIGHT)){
 				Shift(1);
@@ -846,16 +819,13 @@ bool Game::Classic_Game(){
 		else if (glfwGetKey(window, GLFW_KEY_DOWN)){
 			Soft_Drop = true;
 		}
-		//cout << "7";
 		if (Falling == false){
 			Clear_Line();
 		}
-		//cout << "8";
 		if (New_Score != Score){
 			Score = New_Score;
 			Main.Layers[1]->Button_Objects[4]->Edit_Button(to_string(Score));
 		}
-		//cout << "9";
 		if (New_Lines >= Total_Lines){
 			Level++;
 			if (True_Speed > 1){
@@ -865,7 +835,6 @@ bool Game::Classic_Game(){
 			Total_Lines = Total_Lines + ((Level + 1));
 			Main.Layers[1]->Button_Objects[5]->Edit_Button(to_string(Level));
 		}
-		//cout << "10\n";
 		Main.Display_All_Layers();
 		Main.Frame();
 		Close();
